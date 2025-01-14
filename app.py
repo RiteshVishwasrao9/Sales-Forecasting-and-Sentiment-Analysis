@@ -22,7 +22,7 @@ def sentiment_analysis(text):
     
     return sentiment, polarity
 
-# Streamlit interface
+
 st.title('Sales Forecasting with Prophet and Sentiment Analysis')
 
 # Sales Forecasting Section
@@ -30,32 +30,29 @@ st.header('Sales Forecasting')
 input_dates = st.text_area("Enter dates to predict (comma-separated, e.g. '2023-01-01, 2023-01-02, 2023-01-03')")
 
 if input_dates:
-    # Split input and strip leading/trailing spaces
+
     input_dates = input_dates.split(',')
     input_dates = [date.strip() for date in input_dates]
     
-    # Check if the user entered full date or just year and append default day/month if necessary
+    
     corrected_dates = []
     for date in input_dates:
-        # If the date has only the year (e.g., "2023"), append "-01-01" to make it a complete date
-        if len(date) == 4 and date.isdigit():  # Checking for a 4-digit year
-            corrected_dates.append(date + "-01-01")  # Default to January 1st
+    
+        if len(date) == 4 and date.isdigit():  
+            corrected_dates.append(date + "-01-01") 
         else:
             corrected_dates.append(date)
 
-    # Convert corrected dates to DataFrame
+
     df_input = pd.DataFrame(corrected_dates, columns=['ds'])
-    df_input['ds'] = pd.to_datetime(df_input['ds'], errors='coerce')  # Handle invalid dates gracefully
+    df_input['ds'] = pd.to_datetime(df_input['ds'], errors='coerce') 
     
-    # Check if there are any invalid date formats
     if df_input['ds'].isnull().any():
         st.error("Invalid date format detected. Please enter dates in 'YYYY-MM-DD' format.")
     else:
-        # Predict future sales using Prophet model
-        future = model.make_future_dataframe(periods=0)  # 0 periods as we are predicting only the given dates
+        future = model.make_future_dataframe(periods=0)
         forecast = model.predict(future)
 
-        # Display predictions
         st.write("Forecasted Sales:")
         st.write(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']])
 
@@ -73,7 +70,7 @@ if user_input:
     st.write(f"Sentiment: {sentiment}")
     st.write(f"Polarity Score: {polarity:.2f}")
     
-    # Display sentiment as color coded (optional)
+    # Display sentiment as color coded
     if sentiment == "Positive":
         st.markdown("<h3 style='color: green;'>Positive Sentiment</h3>", unsafe_allow_html=True)
     elif sentiment == "Negative":
