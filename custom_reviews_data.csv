@@ -1,0 +1,7 @@
+product_id,review_id,review,rating,date,sales
+1001,1,Excellent product! Very happy with the quality.,5,2024-01-01,200
+1002,2,Not worth the price. Poor quality.,2,2024-01-02,150
+1003,3,"Decent product, works as expected.",3,2024-01-03,180
+1001,4,Fantastic! Exactly what I was looking for.,5,2024-01-04,210
+1004,5,"Terrible, it broke after one use.",1,2024-01-05,120
+1005,6,"Good value for money, but could be improved.",4,2024-01-06,160
